@@ -22,6 +22,19 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "sdkVersion": "51.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "40329aac-c01c-4d44-8dc4-18d8d5ed4b81"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/40329aac-c01c-4d44-8dc4-18d8d5ed4b81"
     }
-  }
+  },
+  "name": "reclaimr"
 }
