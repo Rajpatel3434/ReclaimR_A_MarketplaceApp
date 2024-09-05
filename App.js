@@ -8,8 +8,8 @@ import {
   Platform,
 } from "react-native";
 import { Button } from "react-native";
-import WelcomeScreen from "./app/screens/WelcomeScreen";
+import AuthScreen from "./app/screens/AuthScreen";
 
 export default function App() {
-  return <WelcomeScreen />;
+  return <AuthScreen />;
 }
