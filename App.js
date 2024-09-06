@@ -9,7 +9,10 @@ import {
 } from "react-native";
 import { Button } from "react-native";
 import AuthScreen from "./app/screens/AuthScreen";
+import CreateAccountScreen from "./app/screens/CreateAccountScreen";
+import LoginScreen from "./app/screens/LoginScreen";
+import AppNavigator from "./app/screens/AppNavigator";
 
 export default function App() {
-  return <AuthScreen />;
+  return <AppNavigator />;
 }

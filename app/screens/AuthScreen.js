@@ -1,25 +1,33 @@
 import React from "react";
-import { ImageBackground } from "react-native";
-import { StyleSheet } from "react-native";
-import { View } from "react-native";
-import { Image } from "react-native";
-import { TextInput, Text } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import CreateAccountScreen from "./CreateAccountScreen";
+import LoginScreen from "./LoginScreen";
 
-export default function AuthScreen() {
+export default function AuthScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      {/* Logo */}
       <Image source={require("../assets/logo.png")} style={styles.logo} />
+
+      {/* Create Account Button */}
       <TouchableOpacity
         style={styles.crtAccButton}
-        onPress={() => console.log("Create button clicked")}
+        onPress={navigation.navigate("CreateAccount")}
       >
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
-      <Text> --------- or -------- </Text>
+
+      {/* Horizontal line with "or" text */}
+      <View style={styles.separatorContainer}>
+        <View style={styles.line} />
+        <Text style={styles.orText}>or</Text>
+        <View style={styles.line} />
+      </View>
+
+      {/* Login Button */}
       <TouchableOpacity
         style={styles.lgnButton}
-        onPress={() => console.log("login button clicked")}
+        onPress={navigation.navigate("Login")}
       >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -39,7 +47,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 350,
     height: 110,
-    marginBottom: 40, // Spacing between logo and form
+    marginBottom: 40,
   },
   crtAccButton: {
     backgroundColor: "#FEBD00",
@@ -58,9 +66,24 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
-
   buttonText: {
     color: "black",
     fontWeight: "bold",
+  },
+  separatorContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 20, // Spacing between the buttons and the separator
+    width: "100%",
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: "#ccc",
+  },
+  orText: {
+    marginHorizontal: 10,
+    fontWeight: "bold",
+    color: "#777",
   },
 });
