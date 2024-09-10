@@ -9,12 +9,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
+import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function CreateAccountScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const firebaseAuth = FIREBASE_AUTH;
 
   const validatePassword = (password) => {
     const regex =
@@ -22,7 +25,7 @@ export default function CreateAccountScreen() {
     return regex.test(password);
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!validatePassword(password)) {
       Alert.alert(
         "Invalid Password",
@@ -34,6 +37,20 @@ export default function CreateAccountScreen() {
     if (password !== confirmPassword) {
       Alert.alert("Error", "Passwords do not match.");
       return;
+    }
+
+    try {
+      const response = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      console.log(response);
+      // Clear the fields after successful login
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      console.log(error.message);
     }
 
     // Handle signup logic (e.g., API request)

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  AppRegistry,
   View,
   TextInput,
   Text,
@@ -9,20 +10,38 @@ import {
   Platform,
   Alert,
 } from "react-native";
+import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const firebaseAuth = FIREBASE_AUTH;
+  // const handleSignIn = async () => {
+  //   if (!email || !password) {
+  //     Alert.alert("Please fill in both fields");
+  //   } else {
+  //     // Handle sign-in logic here
+  //     console.log("Email:", email, "Password:", password);
 
-  const handleSignIn = () => {
-    if (!email || !password) {
-      Alert.alert("Please fill in both fields");
-    } else {
-      // Handle sign-in logic here
-      console.log("Email:", email, "Password:", password);
+  //     setEmail("");
+  //     setPassword("");
+  //   }
+  // };
 
+  const handleSignIn = async () => {
+    try {
+      const response = await signInWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      console.log(response);
+      // Clear the fields after successful login
       setEmail("");
       setPassword("");
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
