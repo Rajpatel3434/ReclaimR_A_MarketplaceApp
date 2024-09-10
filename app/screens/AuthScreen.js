@@ -1,7 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import CreateAccountScreen from "./CreateAccountScreen";
-import LoginScreen from "./LoginScreen";
 
 export default function AuthScreen({ navigation }) {
   return (
@@ -12,7 +10,7 @@ export default function AuthScreen({ navigation }) {
       {/* Create Account Button */}
       <TouchableOpacity
         style={styles.crtAccButton}
-        onPress={navigation.navigate("CreateAccount")}
+        onPress={() => navigation.navigate("CreateAccount")}
       >
         <Text style={styles.buttonText}>Create Account</Text>
       </TouchableOpacity>
@@ -27,7 +25,7 @@ export default function AuthScreen({ navigation }) {
       {/* Login Button */}
       <TouchableOpacity
         style={styles.lgnButton}
-        onPress={navigation.navigate("Login")}
+        onPress={() => navigation.navigate("Login")}
       >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
