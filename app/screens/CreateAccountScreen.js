@@ -10,11 +10,14 @@ import {
   Platform,
 } from "react-native";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "./FirebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { createdAt } from "expo-updates";
 
-export default function CreateAccountScreen() {
+export default function CreateAccountScreen({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,13 +55,17 @@ export default function CreateAccountScreen() {
       await setDoc(doc(FIRESTORE_DB, "users", user.uid), {
         name: name,
         email: email,
-        password: password,
+        password: password, // unethical shit to do please delete this irl
         createdAt: new Date(),
       });
 
       Alert.alert("Success", "Account created and stored in Firestore!");
+      navigation.navigate("Login");
       // Handle signup logic (e.g., API request)
       console.log("User signed up:", { name, email, password });
+
+      await sendEmailVerification(user);
+      console.log("Email verification sent!");
 
       console.log(userCredential);
       setEmail("");

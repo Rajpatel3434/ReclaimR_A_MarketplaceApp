@@ -14,7 +14,7 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from "./FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const firebaseAuth = FIREBASE_AUTH;
@@ -34,6 +34,7 @@ export default function LoginScreen() {
       console.log(userCredential);
 
       const userDoc = await getDoc(doc(FIRESTORE_DB, "users", user.uid));
+      navigation.navigate("Home");
       if (userDoc.exists()) {
         const userData = userDoc.data();
         Alert.alert(`Welcome, ${userData.name}`);
