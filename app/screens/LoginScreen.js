@@ -10,33 +10,37 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "./FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const firebaseAuth = FIREBASE_AUTH;
-  // const handleSignIn = async () => {
-  //   if (!email || !password) {
-  //     Alert.alert("Please fill in both fields");
-  //   } else {
-  //     // Handle sign-in logic here
-  //     console.log("Email:", email, "Password:", password);
-
-  //     setEmail("");
-  //     setPassword("");
-  //   }
-  // };
 
   const handleSignIn = async () => {
+    if (!email || !password) {
+      Alert.alert("Please fill in both fields");
+      return;
+    }
     try {
-      const response = await signInWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
-      console.log(response);
+      const user = userCredential.user;
+      console.log(userCredential);
+
+      const userDoc = await getDoc(doc(FIRESTORE_DB, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        Alert.alert(`Welcome, ${userData.name}`);
+      } else {
+        console.log("No such user found");
+        Alert.alert("Error", "User not found.");
+      }
       // Clear the fields after successful login
       setEmail("");
       setPassword("");

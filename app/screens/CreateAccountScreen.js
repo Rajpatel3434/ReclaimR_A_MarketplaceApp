@@ -9,8 +9,10 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { FIREBASE_AUTH } from "./FirebaseConfig";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "./FirebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { createdAt } from "expo-updates";
 
 export default function CreateAccountScreen() {
   const [name, setName] = useState("");
@@ -40,26 +42,32 @@ export default function CreateAccountScreen() {
     }
 
     try {
-      const response = await createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
-      console.log(response);
-      // Clear the fields after successful login
+      const user = userCredential.user;
+
+      await setDoc(doc(FIRESTORE_DB, "users", user.uid), {
+        name: name,
+        email: email,
+        password: password,
+        createdAt: new Date(),
+      });
+
+      Alert.alert("Success", "Account created and stored in Firestore!");
+      // Handle signup logic (e.g., API request)
+      console.log("User signed up:", { name, email, password });
+
+      console.log(userCredential);
       setEmail("");
       setPassword("");
+      setPassword("");
+      setConfirmPassword("");
     } catch (error) {
       console.log(error.message);
     }
-
-    // Handle signup logic (e.g., API request)
-    console.log("User signed up:", { name, email, password });
-
-    setName("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
   };
 
   return (
