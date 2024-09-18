@@ -49,7 +49,7 @@ function HomeTabNavigator() {
 export default function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Auth">
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen
           name="Auth"
           component={AuthScreen}
