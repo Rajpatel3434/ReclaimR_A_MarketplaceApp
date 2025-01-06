@@ -17,15 +17,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "../assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.raahj.ReclaimR"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "../assets/favicon.png"
     },
-    "sdkVersion": "51.0.0",
+    "sdkVersion": "52.0.0",
     "extra": {
       "eas": {
         "projectId": "40329aac-c01c-4d44-8dc4-18d8d5ed4b81"
@@ -36,7 +36,8 @@
     },
     "updates": {
       "url": "https://u.expo.dev/40329aac-c01c-4d44-8dc4-18d8d5ed4b81"
-    }
+    },
+    "newArchEnabled": true
   },
   "name": "reclaimr"
 }

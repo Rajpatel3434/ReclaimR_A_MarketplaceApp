@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   },
   productList: {
     marginTop: 10,
-    maxHeight: 674,
+    maxHeight: 580,
   },
   productRow: {
     flexDirection: "row",
